@@ -1,3 +1,10 @@
+PhotographicImageSynthesis
+
+Images in /cityscapes/Label256Full/ is in size 512*256*3
+
+
+piotrdollar_toolbox_mex_help
+
 The folder "edges" can be run on MATLAB 2017B UBUNTU 16.04.3 
 lsb_release -a : check version of UBUNTU
 
@@ -28,5 +35,8 @@ Error: invalid mex-file Function mexFunction is missing
 Reason: "mexFunction" or the parameters may be incorrect, make sure
 
 Void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
+
+
+
 
 

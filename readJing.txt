@@ -1,6 +1,0 @@
-PhotographicImageSynthesis
-
-Images in /cityscapes/Label256Full/ should be in size 512*256*3
-
-The files names of images in test file have 8 bit
-
