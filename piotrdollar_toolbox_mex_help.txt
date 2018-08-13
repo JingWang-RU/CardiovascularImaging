@@ -1,0 +1,32 @@
+The folder "edges" can be run on MATLAB 2017B UBUNTU 16.04.3 
+lsb_release -a : check version of UBUNTU
+
+1. Download toolbox https://github.com/pdollar/toolbox , compile by ">>toolboxCompile;"
+2. Compile: mex private/e*.cpp -outdir private '-DUSEOMP' CFLAGS="\$CFLAGS -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
+
+Change int to mwSize in all *.cpp files
+
+e.g. edgesDetectMex.cpp 
+
+Error: cannot convert 'const int*' to 'const size_t*'; requested 54329384 * 11234123 (17**.GB)array exceeds maximum array size preference. See array size limit or preference panel for more information. 
+
+Reason: the argument should be type size_t*, but be int*
+
+Solution: int -> mwSize
+
+details: 
+   Line 74, 78, 83,84, 87,88,89 type const int -> const mwSize
+
+Then compile:
+mex private/edgesDetectMex.cpp -outdir private '-DUSEOMP' CFLAGS="\$CFLAGS -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
+
+Another example: spDetectMex.cpp line 324 const int dims[3] -> const mwSize dims[3]
+
+To use the toolbox, addpath(genpath('./toolbox/')); savepath; 
+
+Error: invalid mex-file Function mexFunction is missing
+Reason: "mexFunction" or the parameters may be incorrect, make sure
+
+Void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
+
+
