@@ -1,5 +1,6 @@
-# CardiovascularImaging
+# Cardiovascular Imaging
 
-Created by Jing Wang
+## Created by Jing Wang
 
-It consists of detailed codes mainly in C++ and Python in echo images processing.
+## Contents
+   detailed codes mainly written in C++ and Python for echo images processing.

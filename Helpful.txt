@@ -37,6 +37,37 @@ Reason: "mexFunction" or the parameters may be incorrect, make sure
 Void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
 
 
+Jupyter notebook cannot recognize tensorflow
 
+Solution:
+conda install -c bioconda bcbio-nextgen
+bcbio_conda install c condo-forge libsodium
+       
+
+Update tensor flow:
+
+Conda update -f -c condo-forge tensorflow
+
+Install panda3d GitHub:/panda3d/panda3d
+
+Pip show tensorflow
+
+Install from tensorflow from source
+
+Installation of Open MPI
+https://www.open-mpi.org/software/ompi/v2.0/
+
+> tar xf openmpi-2.0.2.tar
+> cd openmpi-2.0.2/
+> ./configure --prefix=$HOME/opt/usr/local
+> make all
+> make install
+> $HOME/opt/usr/local/bin/mpirun --version
+mpirun (Open MPI) 2.0.2
+
+$HOME/opt/usr/local/bin/mpicc -o hello ./hello.c
+$HOME/opt/usr/local/bin/mpirun -np 2 ./hello
+Hello: rank 0, world: 2
+Hello: rank 1, world: 2
 
 
