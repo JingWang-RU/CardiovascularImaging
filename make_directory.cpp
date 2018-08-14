@@ -24,9 +24,9 @@ void make_dir_macos(string dir_path){
     std::cout << "error";
   }
 }
-int main(){
+/*int main(){
   string path = "abc";
  // make_dir_macos(path);
    char char_path[] = "jing";
    make_dir_macos_char(char_path);
-}
+}*/
