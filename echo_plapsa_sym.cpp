@@ -68,15 +68,15 @@ void listFile( string &directory, std::map<int, int>& id_image, string dir_path,
     //make directory
     if (is_mkdir){
        make_dir_macos(dir_path);  
+       cout << "directory is made " << endl;
     }
-    cout << "directory is made " << endl;
     string true_path = "../../symdataset/sym"+directory+"/";//"~/Documents/Jcodes/Echo/dataset/" + directory + "/";
     string folder = "../"+directory+"/";
     cout << "folder : "<< folder <<endl;
     std::set<int> uid;
     string fileto;
     if( (pDIR = opendir(folder.c_str()))!= NULL){
-        cout <<"jing good"<<endl;    
+        cout <<"good job"<<endl;    
         while((entry = readdir(pDIR)) != NULL){
             cout << "hello" << endl;
             file_name = entry -> d_name;
