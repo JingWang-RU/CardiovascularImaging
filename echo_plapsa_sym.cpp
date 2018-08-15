@@ -17,9 +17,10 @@
 #include<set>
 #include<map>
 #include<algorithm>
-#include <boost/filesystem.hpp>
-#include "kmake_directory.cpp"
+//#include <boost/filesystem.hpp>
+#include "make_directory.cpp"
 #include "rename_copy_check.cpp"
+#include "generate_string_fix_len.cpp"
 using std::cout;
 using std::endl;
 using std::string;
@@ -31,70 +32,53 @@ using std::vector;
 //           rename, copy files 
 // g++ -std=c++11 filestats.cpp -o filestats
 
-void listFile(string&, std::map<int, std::vector<int>>&, int);
+void listFile(string&, std::map<int, int>&, string, int, bool);
 std::vector<int> split_space(const string&, char);
 bool isequal(int, int);
-template <typename T>
-std::vector<size_t> sort_indexes(const std::vector<T> &v) {
-    
-    // initialize original index locations
-    std::vector<size_t> idx(v.size());
-    iota(idx.begin(), idx.end(), 0);
-    
-    // sort indexes based on comparing values in v
-    std::sort(idx.begin(), idx.end(),[&v](size_t i1, size_t i2) {return v[i1] < v[i2];});
-    
-    return idx;
-}
 std::map<int,int>read_file(string filename);
 
 int main(){
-    std::map<int, int>id_image;
+    std::map<int, int> id_image;
     string file =  "./Result/pla_psa_overlap.txt";
     id_image = read_file(file);
-    cout << id_image.size() <<endl;  
+//    cout << id_image.size() << endl;  
  
-    std::vector<string> views = {"PLA","PSA"};//,"A4C","A2C","A3C","SSX","SCX"};
+    std::vector<string> views = {"PLA", "PSA"};//,"A4C","A2C","A3C","SSX","SCX"};
     std::vector<string>::iterator it;
-    std::map<int, std::vector<int>> id_images;//(107,std::vector<int>(7,0));
-    std::vector<int> zero_v (views.size(),0);
-    for(int i = 0; i<107; ++i){
-        id_images[i+1] = zero_v;
-    }
-    int vind = 0;
-    cout <<setw(5)<<"Id";
+    bool is_mkdir = false; 
+    int fix_len = 4;
     for (it = views.begin(); it!=views.end(); ++it){
-        listFile(*it, id_images, vind);
-        ++vind;
-        //cout<<endl;
+        string dir_path ="~/Documents/Jcodes/Echo/symdataset/sym" + *it +"/";
+//	cout << "dr path: "<<dir_path<< endl;
+        listFile(*it, id_image, dir_path, fix_len, is_mkdir);
     }
-    vector<int> temp;
-    int id_v = 0;
+    cout << "well done !" << "\n";
     return 0;
 }
 
-void listFile(string &directory, std::map<int, int>& id_images, int vind, bool is_mkdir){
+void listFile( string &directory, std::map<int, int>& id_image, string dir_path, int fix_len, bool is_mkdir ){
     // id_images:the id, number of images for each id
     DIR *pDIR;
     struct dirent *entry;
-    int n = 0;
     std::vector<int> id_vd_slide;
-    std::map<int, int>read_id_image;
+    std::map<int, int> read_id_image;
     int id;
     string file_name;
     string true_name;
-    std::ofstream writefile();
-    string dir_path ="~\\Documents\\Jcodes\\Echo\\dataset\\photo_dataset\\ph_" + directory +"\\";
     //make directory
     if (is_mkdir){
        make_dir_macos(dir_path);  
     }
+    cout << "directory is made " << endl;
+    string true_path = "../../symdataset/sym"+directory+"/";//"~/Documents/Jcodes/Echo/dataset/" + directory + "/";
     string folder = "../"+directory+"/";
-    
+    cout << "folder : "<< folder <<endl;
     std::set<int> uid;
+    string fileto;
     if( (pDIR = opendir(folder.c_str()))!= NULL){
-        
+        cout <<"jing good"<<endl;    
         while((entry = readdir(pDIR)) != NULL){
+            cout << "hello" << endl;
             file_name = entry -> d_name;
             if( file_name.find("jpg") != std::string::npos ){
                 std::size_t pos = file_name.find('.');
@@ -102,11 +86,12 @@ void listFile(string &directory, std::map<int, int>& id_images, int vind, bool i
                 id_vd_slide = split_space(true_name, '_');
                 id = id_vd_slide[0];
                 ++read_id_image[id];
-                while(read_id_image[id] <= id_imags[id]){
-      			string fileto = "dir_path" + "%08d" + id ;
- 			copyFile(true_name, dir_path+fileto);
+               if( read_id_image[id] <=  id_image[id]){
+      		    fileto =  generate_string_fix_len(id, read_id_image[id], fix_len);  
+ 		    cout << folder+file_name<<endl;
+                    cout << dir_path+fileto+".jpg"<<endl;
+                    copyFile(folder+file_name, (true_path + fileto + ".jpg").c_str());
                 } 
-                ++id_images[id_vd_slide[0]][vind];
             }
         }
         closedir(pDIR);
@@ -127,9 +112,9 @@ std::vector<int> split_space(const string &s, char delim) {
 bool isequal(int i, int j){
     return (i=j);
 }
+
 std::map<int,int>read_file(string filename){
-     std::ifstream readfile;
-    std::vector<int> tokens;
+    std::ifstream readfile; std::vector<int> tokens;
     std::map<int, int>id_image;
     string line; 
     readfile.open( filename);
