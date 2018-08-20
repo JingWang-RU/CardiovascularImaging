@@ -2,6 +2,7 @@ PhotographicImageSynthesis
 
 Images in /cityscapes/Label256Full/ is in size 512*256*3
 
+g++ -g -Wall -I .../ library **.cpp -o ***
 
 piotrdollar_toolbox_mex_help
 
