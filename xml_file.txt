@@ -1,0 +1,9 @@
+In xml file
+
+9: \tab
+10: ‘  
+        ’
+13: empty row
+
+% remove the \tab, empty .in matlab
+xml( (xml==9)|(xml==10)|(xml==13) = [] 

@@ -1,0 +1,19 @@
+luarocks install torch
+luarocks install nn
+luarocks install cutorch
+luarocks install cunn
+nvcc -V
+luarocks install nngraph
+luarocks install class
+luarocks install https://raw.githubusercontent.com/szym/display/master/display-scm-0.rockspec
+
+Luarockt install mattorch error: matlab_root
+Solution: MATLAB_ROOT=/usr/.../R2017b/ luarockt install mattorch
+
+Install luajit for loading models
+
+git clone https://github.com/torch/luajit-rocks.git
+cd luajit-rocks
+mkdir build
+cd build
+cmake .. -DWITH_LUAJIT21=ON
