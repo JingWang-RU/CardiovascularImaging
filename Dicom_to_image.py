@@ -27,7 +27,7 @@ def read_dicom_to_png(path, destination):
        w.write(png_file, image_2d_scaled)
 
 if __name__ == "__main__":
-    main_path = "./DICOM_KOREA/321165-2/MediaManager-201708181453569863/DICOM/ST00001/"
+    main_path = "./DICOM/32-2/Me1453569863/DICOM/ST00001/"
     for i in range(10,16):
      name = "SE000"+str(i)
      dicom_path = main_path + name + '/'
