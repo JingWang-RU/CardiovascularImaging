@@ -3,4 +3,4 @@
 ## Created by Jing Wang
 
 ## Contents
-   detailed codes mainly written in C++ and Python for echo images processing.
+   detailed codes mainly written in Python, C++ and Matlab for medical images, such as CT, Echocardiography in the format of DICOM et al., processing.
